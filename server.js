@@ -288,12 +288,17 @@ app.post('/api/notifications/dispatch', async (req, res) => {
 
   const store = loadStore();
   const entries = Object.entries(store.devices);
+  const allowedTypes = new Set(['daily_briefing', 'reward_ready', 'decay_warning', 'boss_ready', 'remaining_quests']);
+  const forcedType = (req.query.force || (req.body || {}).force || '').trim();
+  if (forcedType && !allowedTypes.has(forcedType)) {
+    return res.status(400).json({ ok: false, error: 'invalid force type' });
+  }
   let sent = 0;
   let skipped = 0;
   const results = [];
 
   for (const [deviceId, record] of entries) {
-    const type = chooseScheduledType(record);
+    const type = forcedType || chooseScheduledType(record);
     if (!type) {
       skipped += 1;
       continue;
