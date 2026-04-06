@@ -1,0 +1,14 @@
+name: Dispatch Notifications
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call notification dispatcher
+        run: |
+          curl -X POST "${{ secrets.DISPATCH_URL }}"
