@@ -1,0 +1,18 @@
+{
+  "name": "sl-system-notification-backend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Minimal web-push backend for the Solo Leveling System PWA",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "generate:vapid": "node generate-vapid.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "web-push": "^3.6.7"
+  }
+}
