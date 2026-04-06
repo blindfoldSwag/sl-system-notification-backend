@@ -10,5 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Call notification dispatcher
+        env:
+          DISPATCH_URL: ${{ secrets.DISPATCH_URL }}
         run: |
-          curl -X POST "${{ secrets.DISPATCH_URL }}"
+          curl --fail --show-error --silent --request POST --url "$DISPATCH_URL"
